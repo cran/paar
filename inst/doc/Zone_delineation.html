@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Zone delineation</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Zone delineation</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(paar)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span></code></pre></div>
+<p>Multivariate zone delineation can be done using <code>kmspc</code>
+function, whereas univariate zone delineation can be done with
+<code>fyzzy_k_means</code> function.</p>
+<p>Multivariate function implements the protocol proposed by <span class="citation">Córdoba et al. (2016)</span>, which performs a
+clustering with the <code>kmeans</code> function using as an input the
+spatial principal components (sPC) of the data. The function requires an
+<code>sf</code> object with the data to be clustered, and more than one
+numeric variable. The function by default returns a list with the
+following components: - <code>summaryResults</code>: a
+<code>data.frame</code> with - <code>indices</code>: a
+<code>data.frame</code> with indices to help to chose the optimal number
+of clusters. - <code>cluster</code>: the cluster number assigned to each
+observation.</p>
+<p>For this example we will use the <code>wheat</code> dataset that
+comes with the <code>paar</code> package. The <code>data.frame</code>
+has apparent electrical conductivity (ECa) measured at two depths,
+elevation data, soil depth, and wheat gran yield. All variables have
+been interpolated to an unique grid and then merged in a single
+<code>data.frame</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">data</span>(wheat, <span class="at">package =</span> <span class="st">&#39;paar&#39;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>wheat_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(wheat,</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>                     <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&#39;x&#39;</span>, <span class="st">&#39;y&#39;</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>                     <span class="at">crs =</span> <span class="dv">32720</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">plot</span>(wheat_sf)</span></code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAA51BMVEUAAAAAADoAAGYAALMAAPYAAPwAOmYAOpAAZrYMAP8XAP8lAP8tAP84AP86AAA6OgA6Ojo6OmY6OpA6ZmY6ZpA6kNtVAP9iAP9mAABmOgBmZjpmtttmtv9pAP9yAP+FAP+QOgCQOjqQ2/+WCvWdDvGrF+i2ZgC2Zjq2kDq225C22/+2//+8It3LK9TbkDrbkGbbtmbb/9vb///lPMP/TbL/Vqn/YZ7/apX/bpH/eoX/hnn/i3T/kG//mGf/q1T/sk3/tmb/tpD/t0j/wD//xzj/0C//0yz/25D/27b/9Qr//7b//9v///8sKikAAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAWKklEQVR4nO2cC3cTx5LHFURugGu8u3cTmexiw43k3F2QSDYjWU9jLrIBhfn+n2e7Xt09D6l6Xli+p/+HY0tju2fmR1V1VXWPemnUQfXu+wKOXRGQoghIkQ7o93/r9f7jTfr5tGf03S/pb6e9v7xJ088/47fmyo//+2nvxz9aHF8G/vr60dsaf64Cetf77/Tr6+9++Xz6hM/35M8XP/zx9fWT/3v9wx81zqiM/6H309fXLY6fysAdAfrzxZPsefhUn09/St+Z/++mKowPg74DXu2M3zmgD72X2fMYfTE3BcftzxqoMP6vhoo52Nb4OUBf/t4zDowv4b8gQBqgd+4GwJXB6P98YYLDO7yBoFNUGx9c7NfeT22N7wYGKiY4vPnyAk7yMtQ+KwCyFgT/yx0A4vF/O/3uv9oF5CwIRzRkjGN/DYxwdVwMrrwzF+OD3bjYux7qZfrro/8N87BaQZpuoKMgDTIDtzV+iQWBPvT+PXDwytP87xAjHr3tbJr/56mZ5p+k3UzzEIMwQn993QscPCBRPPUSud7Lr//TdqKYHT/9R6+LRNFcOM5iP/do2Heh7htLDUURkKIISFEEpCgCUhQBKYqAFEVAiiIgRRGQoghIUQSkKAJSFAEpioAURUCKIiBFEZCiCEhRBKQoAlIUASmKgBTVAXRu1PqFeDoz6nL8pVHwL9cAdH4+HndJ6Ozs5KRLQstlFULVARnzmXVpQsZ8Tro0oWXHgMYMaDau+pdhOmNAJ8Nuxl9ahf1+VUCz8TkgOh/PxuOq1xaiM5bxsk4ILZcVCVUENDNcTAgaj2fdABI6Jx0BWnYMaA1cgM4MX6zrXOMhTRygs7PhdNr2+Bk+y48fA/6kEqDZmsAQJgOoZUITAQRfhpNp24SWeUABhCoCWs/EeroBNCRCw+FkAnweGKCZAbT2AMHbNhEZJpPhcCjWA5q0GYjydFDaH1UABGyYkNBpldCCrMaY0XDiALVHqGA+QYTCAe3YvWbkaOt1y4QWC2NA08XCUEEbElhtpYxF/woiFAxot5MAlAfUDiGDxhCCrwYQTmITkAHUjg3t5aMQCgW03e22a5rEZmvzar3dtkoI0ZAA0OPHJg+CgDQEUi2ML2CSEkAHCQUCmhlASAiDz3abQ9T4+o1jTS2fobEgADSkOc1E7MbjWz5JUsBzmFAYoNlsuz0EaNvw+jcGixDyAMmU33i69/iUAjpAKAgQhJwtUZnJ9DUjT2NAzQgtNgsmtCE+j09OuB5rJSHy+SChAqD9hEIArWdeULa5EDHbMqAmhCaLDRCamm8AiMmAHZ24hKjB+MsCoOXHvB3tLcwCADEQb9qSyUwA4fdZ3eufTJDMwgC6uUFAGHiGwwyg+glRjk+ydPIALZPyv9YBCRHrTVs330NgYq3rEjLJzgJNCPjcbBYwd0FODa5mU2qY72sSSnJ8fEBLx2cfIRWQF2fWnltRVQ9z284eqkUIbh6zn6kPiGyGUiHOh4bDRZ3xLZAkKSMEjOwvlP29Bsjj4wDRdHY+dm/ZzKpfP1qHIQRmQp5GgBZgNBPCJJrWIGSBJPsA+R5YMkAgIIGwtR41Y0Brj08NQuQ/UzvNwySGLrawsQcOMKDqhBhJkqiA8EfFARRA5uYl5cEotJUUaMspkfieRKWK188heLHgr9TwkLl9SiZE2dAQPbHi+B6WV0b7+LjfKoxwGBDiEKeyGSLPWmMbuGcOUDVCUzEUfEGADI8JA4LwPaUe0URS7SZ8XmUsKClVJUBbTxSA1o4PT/QMyM50VRKiqbgVxekFO9WEGkMAaQFB2yREQ1uqVUkZ83xeeT5WjqdI6BCgdQaQS3vWW5saeYCqJ9VoN1DEIyCc6RkCptNAaHOzoeJ+Yku1cBsq8Hm1l8p+QgcA0RzlJTpuwlpj997alAdoG55UC58pmcqGCGE2bQAZqxkCoJvpFAFNhF2wl3lG8qoKoCyh/YDIQGyi41mSbSrOKITb+MO/Enb9C4/PZnPzCXIguH38PqHADD9YLIb0WiJ5ICDnRYbMX43aB4QhBfj4E/xaskRYop+xLXGLuiog5gMZ4qdPUGZMJ1KQDXHiQsfjXMiG6aqAkE+/D4RKeRQOBwGaSRT2AO0kY/aYcMpYGRCXpxbQDQLiWDR12RDHcJBEqE0QnmQp2Q/x2QPIHKsFaDZjxwEfoyDjKgrrYehkM1iKpkWgKnwkJBu7MHyMK6GtIBOqvKR1v5BMAMOUURCfpWSH5F99IFTiY3LID1DZkQ4DAqvgVitXqZnKFWOQXWxlQCHXn2423qTFN76hcC3pM6RDkgdgq6gCn3wA6jOgEgMqAMqNVApoiwxs08cBknWfbAVrAYX2hcQYLCA7e019QF7Y4Uo22H5KAJW6WBFQfqwyQFw6rBnQ2iWFGUDy0wyxMD5iDmI+C0+2uwGAqH61pX44n2KINoCKIcj9EhMqDHYAEPFx7TFLYsax2eu+VuGDKzzmXmE+RwB+QBJAGIWgk8axiROloPGBjscH53hnPyVZ9AE+ZYC84pNiTAbQlguLMSdCmXZjGJ8p+RW5jAVk6zHkw02PTPAOnOB9Pg4QEShWp45QKZ8SQFKqcy06490ujhPNYjh1zfDfufxK0PVPKD9EG6LAA716qjcAkW2QERPJg4L3emQBvLJK/Dq+3NPKhisAkqaqy3LGdmL3dr6c89wOr549o9dhfGxVRebDMzvkztxJRD78Zjrhan4Y2nJNSgElJXgKqErHywPa2mYGAgJLcXyIw7mIjhg+hlA4H7sAxjM7UxnyEhjQwQVnTIOQFS5Eh/LZC6jQ/lFbQWWAXNVOroVbNiVvBhTn5wjkmcfqGSmUz0TmJvNFSgpe5DnB9eYzJ5jtT3iVLJAP3Hgx+pZ0x/LetmfELKBsQwzdh3ZF09dnfSBhcgoymZp8eG6CWoO8R7bdPX4MS/In+NVuVYRlelAwn0L4QRhu8SKzuoGHDvEpAFqLCW3XYjJj60/PAE1jQFOewWgR1W1rffy4jzDMt5OTDLRagLLB2S3vJM0Aud7qVoCci0cxiiygKnxSnqoo6VtM2UbEUhCGwdTv09aF4RkfC+WT5tgU+Hxc5gnJgb1DFgFJhbEen/eRhYQcYfEMuZ2jaT2rxCedCh/s/kzOLKEz8iwG1UcnG06G9ueB4xfwAKClByhLyPVe9w9ZDNJcpK9nYEAWUCZGw+Fzn1ng9XMXenPzyeiGJnDmI6EHCaEJwdrGsBofIERYODXMG1DOyZQJrAyQ3Qo99i0GAVG+g4SImwMUfP0p1vHGgHa7HbZ/JjhNWUAnyIudzBgbxKgqfIxsaUGEvAi9n9Ch8QqAZi4VZOdiy7GSKGQBVbn+dIPdMQPoE5UQsEfhjAFhCAI5QFX5pH/1xB5GYKB5nAf0SuVTUmr4uXKZ/DB9XpkPmVAGEM9iGHpsnCZAkxqPju0BtNsxoWylb3R4uLJq3gfkvxjbScufxipef4pG9Gn3iVxsMnSE+n2Zs8w3eBJhWm9PB3dYqYBfZgDtfBMK4XMAkBPxwbTaD0oNAEGYvuF1QoHkAGFUmnBXqAagft9rkPke5kxo2QhQOnbPq8w0QNWvn+PQhlc1GNHZCROikDRssimoDNDHPYC0sfb2pKVrP8sAsoEbHxir/0QUpkG8nMolO3mWVGTc+Kg7vmtBLzOE8gWHPtIeQFu7emodbZat5Mm+6t4ANTpo1yZ52tmJzYgIEHbQ6o7vWojLZXHPZguA0q3tBeUj0lgAhXbISiWNVF6yEEBSxU+qLBGWKQMoT0gvMJz2r6xuvWYZY3IuR8l2/etPcW80LyVjX8huG6clsYZ8UswYXcFVAmgZ9sjhoaVnaSoKIouKF50bXX/K3WfsfSymNiWCnhkvZzQbP7cbKLulNZjPwd0dAmhtHzQUCxo38y8SW9CGdi3wXH9GTcUam8kK8ncDZRFV4HN4A9WY5jIK1xJ3qMnYnE8K/XteMpWpXp7xaelpzDwgQlTFfrQteLKSwYFnzICaTPAZeQ9oTGT3He/+bWX8IiGr0CGUTZx2qYd3KFhALX3yAi2E2XSRAKEJtTN+wcvaBpTKPjvk4qVCDS/caiq7oqTmqLIEFqBcY6MyH32nvTznw6scDKjRRWc0dTukDZdhmw6GKjTHMAcK//uAZzVKADW44IJkocxtcW2TTwmhsARRFPK0TxZQWwHaauJtApo2qsDK1YhP2PNibqt4B3xotp/K5qlmj4aVqgmfsCcOXdHRBR964sdurm+dj0uqa/AJfGaVCjGa7GtcoCrZp9l2/BHt34KoKvCpZ2dAVa8tTLKpo8UPWsjo0Bapwwp9br5bPkyoMz5CSG8gFhT8yQvrmk/Mhaqr+COqyafCZ3dsg/fY1dMmdI94TXUOKO2WD7ZhOx2/Fp/4SZyaIiBFEZCiCEhRBKQoAlIUASmKgBRFQIoiIEURkKIISFEEpCgCUhQBKYqAFEVAiiIgRRGQoghIUQSkKAJSFAEpioAURUCKIiBFEZCiCEhRBKQoAlIUASmKgBRFQIoiIEURkKIISFEEpCgCUhQI6M8XPaO//NLZdfzaQz3p7AR1FQzohz/SLy++645Q+vW1OcXxqQqg9F3vZXdX8q8C6Mvfe70fu7gTBvT5tPefPz9628EJ6qmaiz16a168+fKii/9rAgQn+tB7iIA4SH/o/WQsqYtYRIBg/K+vHyIgNpp3NNt0EIsIEHjxgwaEFtSJ/kUsCGJQNzfgYtDvDzIGSVz+8rOJRW86uBKexT6c9n58gLPYN9VDdLFvps+nj95+eXFEFcexAUp/O+31/nY8BnR8gI5NEZCiCEhRBKQoAlIUASmKgBRFQIoiIEURkKIISFEEpCgCUhQBKYqAFEVAiiIgRRGQoghIUQSkqA6glVHrF+KpzkeudqYagFarbgnV+tDezlQd0KpjQPU+1bgzVQa0El11cTlpOq/5wdhdqSqglQPUCaG5A3QchCoCWnUMaP7AAWX4XLWPaD7PEDoGRJUAZem0TyiZs46IUB1AV1edAbrOIWp3/DqqAqjIp11EibGg6+sjs6EKgK6KfJI2CY0MDgPo+rjiUDigq6vV1cpigW8JvmgrZRwxoCyeeycUDAhZXPmAWKv3rVzIaASEGBDCOg5CoYCcVyVXiU9otXrfBqFkhISub6+TZDQYHA+hQEAOj4WzQjorAHTX+DJGiViQMZ/B06fHQygMkMMjgYeiNfF5f9eU0AABQQyaE6CnWUCjhuM3UBAgj88lALLTGdABPg0JjcBgCAkCGjwdDAiWALo/QiGAkqwBOTwrpmO0a3ANIwBEQhoDo1EmHRrdH6EAQEkpoFUO0K62EZm7Hwx8QPA+8QHBT+bzuuM3kw4o8Sct4GOoECED6M7y2dV1swQMCAgNEBPzwJwIATG6+T0RUgGtCBB7VSJx572E57sd6+6u1nQ/IoshGxqMxGLMV5NUCx3z3gC6FzfTAK2uKO+xRcbKB3SXBVSD0IgmeDIeMhQgxGWZ8zv0t/sgpAO6EgOiuCMWZOcvpnMHgKoTgtu3JkKZtPlKfJJkQCmjVPijfr2bbCIFkNSmXp26WmX43DEd5FOZkEsIr29vbw0dKDUADRStyagA6GntG62rw4Bc9e4IrSyhO08WWqWzjzgsg+nc3iIiYHQNb4GQBwgc72n/6TcndBBQSYPDpc/A532BTyVClACRgRhAu90tvgLtDCw0oRFnjCOTXvcNoG8dhw4B8kJPjg9n0B4WZ1fhhBIKzkTkGj2MrAXfISCO0JA9GjwI6BsXZgcArTxAiQJo5QEKJcQpoQDCVpmYE731q7EB+BdUsd+4dN0PCDLBqyyglRwwNBiIt85REVBiAXHsQUfieqwgrGA5JLV062E6CMjFoMQZj08k97YqoIR7QLeFPqvM/d5bziW/dfNjHyApJjgClQLyirLKgAZSdiVuKaMIaOS9Gww4zz4KQBkAXKTuA5S3oJDT2pul2y/0ofOIRpISfWs+FQD5RvQ+511V+fiAGEPBiOYeIarW8G+OYprPeo/fSfS9qZxQyEmhIWbdR2r3HKH5fFQEdA99oTJAHh8BdHmZIZQDRG8r+NfTQdbH7Ew/d3w8C7Mx6B76ZocBiY9dgqQvREgyDK2CzpkHNJ9LmQFVmE9tLoDE0tq9+RCVAHLpjsxiBOgy52fMx38bdEpwFkz4kjnzuYYqAwjdXvtO5gOi4y3ffIiKgNitPBkPu7i4YEJJkml/ZBR0RowmA4k61NhwFmSp4M+xpB/ZFem2bz5EBUBJBhACuQQ+hCjja/JzUdAJ3Xw0t4SktJCCI6GUGo/LgqtR6zcfojwgbo+5mwciFxfPjXxCbnme4jccDTqftFcTaPkQISy+eBKzgNj3cC5jQO3ffIhygK68dWVnO4bO999/D4jYjqzRXDoFnY7LL1kjdDY0JyJztiF+6ydJHdx8iLKA2Ci80PMc9T3rOUGyiC7F+y4ugs6WryByeznmEo/sdO9+u4ubD1EBkCWE9pPlI2YkRuTxeR50tsTmhXaeyiaH1w8EkNy9Y9PvZ2xIwtGF2FjY2ZKs7H4yoiR4vMn+3vnsBUT37vCAnAkJIsETyCcHaC77yTgSER1qfuRQtn/joSoEaZnZ8eb3AkJHu6jKRwiNHB9nQh4fAuQ5X8s3XUWFPIgmLzaOLKA++9jz5+JolfyLlInI6E12hvf4ZEvX9m63ug4Dkgh9GFClEyZehyxnQdc+Hi8jau1m66ik1ODspoRQOaCKZ0zyaaHLFq+vM3yo0LjHzVOgsmo+O4MjIT8GeXyCE6CM5j4G60n8DmYumzDeP5+9gBJrRxe5PMiyYYbVz5lYJDbS2J4iVe/+3N/4FpuptKOImaI3mT3P8bn00qA6J2UiiQ9o5AEayfrh/VUYVnt60lzRZxHlksTgAqxEfsOMAREQr0d9fwWqrz2A3uPSoCV0IXHnMqe6p4WOGbZSbcbMebXtIFJIqjt+e9q3LoZdZinpL13UyRTwtfngvpfRyLZTyeMylev8Hit4X/tXVgmQTaxdl8O9bnRm2VjGJZdrejhAjcZvSYcAvV+5thjKRu4W+EhlP6K9iblFoPtPEEUHdnfgyoVP6CoLqOmpyXDQjp4ORo6PEGo6fjs6uIEqR8iGpFb4pLJ/YYDPZiQygfEC4X0niKLDW/De7wPUJD57IpvBKc02WGnVY9DK+C1I3cS5ygNiE2rn9Inb2GIADTxC7YzfXOo2YI+Qv8rT1vmFED3vIzH7ePgE7LR3WLwVj/YuwE1msuP1fpaY90l/VsOf5dvn43aaSYlxPBMYKuRpH2+lsH0+tg1LlcexJNBWIc+LZRabW+dj2ytgQUdSoXoKeuIwa0DtX4QjND82PoHPrNoF+47igwBKjsy/0gpPPctul24uo/38oS0FPzfPgLq6jmPlE/7JCxW2kNXSkfKp8NkdHQNKHzygtFs+SKjT8espfhKnoghIUQSkKAJSFAEpioAURUCKIiBFEZCiCEhRBKQoAlIUASmKgBRFQIoiIEURkKIISFEEpCgCUhQBKYqAFEVAiiIgRRGQoghIUQSkKAJSFAEpioAURUCKIiBFEZCiCEjR/wMtNdZKlpj7jAAAAABJRU5ErkJggg==" /><!-- --></p>
+<p>The function <code>kmspc</code> requires the <code>sf</code> object
+with the data to be clustered, and the number of clusters (zones) to be
+delineated. For the sPC process, is necessary to specify the distance in
+which observations will be considered neighbors. The <code>ldist</code>
+and <code>udist</code> arguments specify the lower and upper distance
+thresholds, respectively. The <code>explainedVariance</code> argument
+specifies the minimum value of explained variance that the Principal
+Component to be used for the cluster process should explain. The
+<code>center</code> argument specifies if the data should be centered
+before the sPC process (default <code>TRUE</code>).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Run the kmspc function</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>kmspc_results <span class="ot">&lt;-</span> </span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">kmspc</span>(wheat_sf,</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>        <span class="at">number_cluster =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>        <span class="at">explainedVariance =</span> <span class="dv">70</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>        <span class="at">ldist =</span> <span class="dv">0</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>        <span class="at">udist =</span> <span class="dv">40</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>        <span class="at">center =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; Warning: All numeric Variables will be used to make clusters</span></span></code></pre></div>
+<p>To help the user to chose the optimal number of clusters, the
+function returns a <code>data.frame</code> with indices
+(<code>Xie Beni</code>, <code>Partition Coefficient</code>,
+<code>Entropy of Partition</code>, and <code>Summary Index</code>). The
+<code>Summary Index</code> is a combination of the indices to obtain a
+measure of the information reported by each index. In this example, the
+optimum number of cluster is 2. For each index, lower the value better
+the clustering. More information can be found in <span class="citation">Paccioretti, Córdoba, and Balzarini (2020)</span>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>kmspc_results<span class="sc">$</span>indices</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt;   Num. Cluster     Xie Beni Partition Coefficient Entropy of Partition</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; 1            2 3.521088e-05             0.9611961           0.06490349</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; 2            3 5.479513e-05             0.9391112           0.10430719</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; 3            4 5.826788e-05             0.9292914           0.12352985</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt;   Summary Index</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; 1      1.281102</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; 2      1.597473</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; 3      1.713101</span></span></code></pre></div>
+<p>The cluster for each observation can be found in the
+<code>cluster</code> component of the <code>kmspc</code> object. The
+<code>cluster</code> component is a <code>data.frame</code> with the
+cluster number assigned to each observation.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">head</span>(kmspc_results<span class="sc">$</span>cluster)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt;      Cluster_2 Cluster_3 Cluster_4</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;1&quot;       &quot;1&quot;       &quot;1&quot;      </span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;1&quot;       &quot;1&quot;       &quot;1&quot;      </span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;1&quot;       &quot;1&quot;       &quot;1&quot;      </span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; [4,] &quot;1&quot;       &quot;2&quot;       &quot;1&quot;      </span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; [5,] &quot;1&quot;       &quot;2&quot;       &quot;1&quot;      </span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; [6,] &quot;1&quot;       &quot;2&quot;       &quot;1&quot;</span></span></code></pre></div>
+<p>The clusters can be combined to the original data using the
+<code>cbind</code> function.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>wheat_clustered <span class="ot">&lt;-</span> <span class="fu">cbind</span>(wheat_sf, kmspc_results<span class="sc">$</span>cluster)</span></code></pre></div>
+<p>This cluster can be plotted with the <code>plot</code> function.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">plot</span>(wheat_clustered[, <span class="st">&quot;Cluster_2&quot;</span>])</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>Also, ggplot can be used to plot the clusters.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">ggplot</span>(wheat_clustered) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> Cluster_2)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-Cordoba2016" class="csl-entry">
+Córdoba, Mariano, Cecilia Bruno, José Luis Costa, Nahuel Peralta, and
+Mónica Balzarini. 2016. <span>“Protocol for Multivariate Homogeneous
+Zone Delineation in Precision Agriculture.”</span> <em>Biosystems
+Engineering</em> 143 (March): 95–107. <a href="https://doi.org/10.1016/j.biosystemseng.2015.12.008">https://doi.org/10.1016/j.biosystemseng.2015.12.008</a>.
+</div>
+<div id="ref-Paccioretti2020" class="csl-entry">
+Paccioretti, P., M. Córdoba, and M. Balzarini. 2020. <span>“FastMapping:
+Software to Create Field Maps and Identify Management Zones in Precision
+Agriculture.”</span> <em>Computers and Electronics in Agriculture</em>
+175 (August). <a href="https://doi.org/10.1016/j.compag.2020.105556">https://doi.org/10.1016/j.compag.2020.105556</a>.
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
