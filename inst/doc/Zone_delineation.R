@@ -43,7 +43,7 @@ wheat_clustered <- cbind(wheat_sf, kmspc_results$cluster)
 plot(wheat_clustered[, "Cluster_2"])
 
 ## ----eval = !requireNamespace("ggplot2"), echo = FALSE, comment = NA----------
-#  message("No package ggplot2 available. Code chunks using that package will not be evaluated.")
+# message("No package ggplot2 available. Code chunks using that package will not be evaluated.")
 
 ## ----eval = requireNamespace("ggplot2")---------------------------------------
 ggplot(wheat_clustered) +

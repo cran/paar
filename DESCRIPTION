@@ -1,7 +1,7 @@
 Package: paar
 Type: Package
 Title: Precision Agriculture Data Analysis
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: 
     c(
     person("Pablo", "Paccioretti", email = "pablopaccioretti@agro.unc.edu.ar", 
@@ -21,21 +21,21 @@ Description: Precision agriculture spatial data
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports: data.table, e1071, gstat, sf, spdep, stats
 Depends: R (>= 2.10)
 Suggests: testthat, concaveman, units, SpatialPack, stars, knitr,
         rmarkdown, ggplot2
 URL: https://ppaccioretti.github.io/paar/,
         https://github.com/PPaccioretti/paar
-VignetteBuilder: knitr
+VignetteBuilder: knitr, rmarkdown
 BugReports: https://github.com/PPaccioretti/paar/issues
 NeedsCompilation: no
-Packaged: 2024-07-27 16:14:03 UTC; ariel
+Packaged: 2026-03-19 20:13:15 UTC; ariel
 Author: Pablo Paccioretti [aut, cre, cph],
   Mariano Córdoba [aut],
   Franca Giannini-Kurina [aut],
   Mónica Balzarini [aut]
 Maintainer: Pablo Paccioretti <pablopaccioretti@agro.unc.edu.ar>
 Repository: CRAN
-Date/Publication: 2024-07-30 13:10:02 UTC
+Date/Publication: 2026-03-19 20:40:02 UTC

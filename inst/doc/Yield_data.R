@@ -5,7 +5,7 @@ knitr::opts_chunk$set(
 )
 
 ## ----eval = !requireNamespace("ggplot2"), echo = FALSE, comment = NA----------
-#  message("No package ggplot2 available. Code chunks using that package will not be evaluated.")
+# message("No package ggplot2 available. Code chunks using that package will not be evaluated.")
 
 ## ----setup--------------------------------------------------------------------
 library(paar)
@@ -64,7 +64,7 @@ ggplot(barley_clean) +
   theme_minimal()
 
 ## ----eval = !requireNamespace("ggplot2"), echo = FALSE, comment = NA----------
-#  message('Package ggplot2 is not available.')
+# message('Package ggplot2 is not available.')
 
 ## ----eval = requireNamespace("ggplot2")---------------------------------------
 ggplot(barley_sf) +
